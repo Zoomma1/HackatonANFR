@@ -11,7 +11,7 @@ def getThemAll():
     response: JSONResponse
     responseArray = {}
     ClusterList: list = Reader.Reader("Cluster.csv").csvToList()
-    FrequenceList: list = Reader.Reader("tableau.csv").csvToList()
+    FrequenceList: list = Reader.Reader("tableauInit.csv").csvToList()
     for line in ClusterList:
         # if the first element of the line is not in the responseArray
         if (line[0] not in responseArray):
