@@ -4,6 +4,7 @@ import Reader
 from starlette.middleware.cors import CORSMiddleware
 from Entity.Service import Service
 from Entity.Lieu import Lieu
+from Entity.Group import Group
 
 app: FastAPI = FastAPI()
 app.add_middleware(
@@ -21,9 +22,8 @@ reader: Reader
 def getThemAll():
     response: JSONResponse
     responseArray = {}
-    ClusterList: list = Reader.Reader("Cluster.csv").csvToList()
     InitList: list = Reader.Reader("tableauInit.csv").csvToList()
-    step1: list = {}
+    step1: dict = {}
     ## create localisation
     for line in InitList:
         step2: dict = {}
@@ -33,8 +33,11 @@ def getThemAll():
             'Fr_max': line[3],
             'Preset': line[4],
         }
-        step1[line[0]] = step2
-    return step1
+        if line[0] in step1:
+            step1[line[0]].append(step2)
+        else:
+            step1[line[0]] = [step2]
+    return JSONResponse(step1)
 
 
 
@@ -58,10 +61,16 @@ def free():
         listGroup: list = []
         for line in libre:
             if line[0] == lieu:
-                for group in listGroup:
-                    if group.checkEmptyPlace(Service(line[0], line[1], line[2], line[3])):
-                        group.AddToListGroup(Service(line[0], line[1], line[2], line[3]))
-                        break
+                salle = Service(line[0], line[1], line[2], line[3])
+                if len(listGroup) == 0:
+                    listGroup.append(Group(salle.frequence))
+                else:
+                    for reservedLine in reservation:
+                        if reservedLine[5] == lieu:
+                                for group in listGroup:
+                                    if group.checkEmptyPlace(Service(reservedLine)):
+                                        group.AddToListGroup(Service(reservedLine[0], reservedLine[1], reservedLine[2], reservedLine[3]))
+
         return listGroup
 
 
