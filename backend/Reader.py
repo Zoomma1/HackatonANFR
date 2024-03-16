@@ -13,7 +13,7 @@ class Reader:
         lignes = []
 
         # remplacer le chemin par celui menant au fichier csv dans votre PC
-        with open('tableau.csv', newline='') as f:
+        with open(self.path, newline='') as f:
             reader = csv.reader(f, delimiter=';')
             next(reader)  # Ignorer la première ligne (en-têtes de colonnes)
             for ligne in reader:
