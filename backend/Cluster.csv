@@ -1,0 +1,20 @@
+Cluster;Services dans le cluster;Usage Type associé au service;Localisations dans le cluster
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PC1 - PARIS CENTRE 1
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PC2 - PARIS CENTRE 2
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PS1 - PARIS SUD 1
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PN3 - PARIS NORD 3
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PC3 - PARIS CENTRE 3
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PO2 - PARIS OUEST 2
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PC5 - PARIS CENTRE 5
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PS2 - PARIS SUD 2
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PC4 - PARIS CENTRE 4
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PS4 - PARIS SUD 4
+Cluster 1;Private_Mobile_Radio;Ground to Ground;PS3 - PARIS SUD 3
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Air;PC1 - PARIS CENTRE 1
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Air;PS1 - PARIS SUD 1
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Air;PC3 - PARIS CENTRE 3
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Air;PC4 - PARIS CENTRE 4
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Ground;PC1 - PARIS CENTRE 1
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Ground;PS1 - PARIS SUD 1
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Ground;PC3 - PARIS CENTRE 3
+Cluster 2;Wireless_Camera_and_Mobile_Airborne_Video_Links;Ground to Ground;PC4 - PARIS CENTRE 4
