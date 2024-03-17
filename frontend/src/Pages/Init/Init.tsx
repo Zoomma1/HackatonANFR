@@ -7,6 +7,8 @@ import {
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
 import AddWeekNumber from "../../Calendar";
+import React from "react";
+import ChartBar from "../../Components/Chart/ChartBar";
 
 export function Init() {
   const [localisation, setLocalisation] = useState<Localisation>();
@@ -36,7 +38,8 @@ export function Init() {
 
   return (
     <>
-      {isCalendarVisible && <AddWeekNumber />}
+    <ChartBar localisation={localisation} name={names}/>
+    {isCalendarVisible && <AddWeekNumber />}
       <button
         className="toggle-calendar-button"
         onClick={() => setIsCalendarVisible(!isCalendarVisible)}
