@@ -45,7 +45,7 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
           <Tbody>
             <tr>
               <th className="table th">Localisation</th>
-              <th className="table th">Utilisation</th>
+              <th className="table th">Service</th>
               <th className="table th">Fréquence min</th>
               <th className="table th">Fréquence max</th>
               <th className="table th">Fréquence prédéfinie</th>
