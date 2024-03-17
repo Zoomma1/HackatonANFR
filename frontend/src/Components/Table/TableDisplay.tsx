@@ -3,8 +3,8 @@ import React from "react";
 import { Localisation } from "../../Models/Localisation";
 import { Table, TableContainer, Tbody } from "@chakra-ui/react";
 import { Services } from "../../Models/Services";
+import { Localisation as LocalisationType } from "../../Models/Localisation";
 import "./TableDisplay.css";
-
 interface TableDisplayProps {
   localisation: Localisation | null;
   name: string[];

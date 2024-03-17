@@ -1,4 +1,3 @@
-import "./Validation.css";
 import { useState } from "react";
 import { Localisation } from "../../Models/Localisation";
 import {
@@ -7,19 +6,17 @@ import {
 } from "../../Services/localisationService";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
 import { TableDisplay } from "../../Components/Table/TableDisplay";
-import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import AddWeekNumber from "../../Calendar";
+import NavScrollExample from "../../Navbar";
 
 export function Validation() {
   const [availableLocalisation, setavailableLocalisation] =
     useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
-
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false); // New state variable
   const navigate = useNavigate();
-  const onClick = () => {
-    navigate("/CheckValidity");
-  };
 
   if (!availableLocalisation) {
     getAvailable()
@@ -44,15 +41,15 @@ export function Validation() {
   return (
     <>
       <div>
+        <NavScrollExample/>
         <SearchBar value={searchValue} onValueChange={setSearchValue} />
-        <Button
-          onClick={() => {
-            onClick();
-          }}
+        {isCalendarVisible && <AddWeekNumber />}
+        <button
+            className="toggle-calendar-button"
+            onClick={() => setIsCalendarVisible(!isCalendarVisible)}
         >
-          {" "}
-          Check if frequency is available{" "}
-        </Button>
+          Toggle Calendar
+        </button>
       </div>
       <TableDisplay
         localisation={filteredAvailableLocalisation!}
