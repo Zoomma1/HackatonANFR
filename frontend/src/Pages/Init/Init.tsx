@@ -44,7 +44,11 @@ export function Init() {
         Toggle Calendar
       </button>
       <SearchBar value={searchValue} onValueChange={setSearchValue} />
-      <TableDisplay localisation={filteredLocalisation!} name={names} />
+      <TableDisplay
+        localisation={filteredLocalisation!}
+        name={names}
+        displayType={"init"}
+      />
     </>
   );
 }
