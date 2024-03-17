@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Localisation } from "../../Models/Localisation";
 import {
   filterLocalisation,
@@ -6,11 +6,13 @@ import {
 } from "../../Services/localisationService";
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
+import AddWeekNumber from "../../Calendar";
 
 export function Dashboard() {
   const [localisation, setLocalisation] = useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false); // New state variable
 
   if (!localisation) {
     getLocalisation()
@@ -33,9 +35,12 @@ export function Dashboard() {
   console.log(localisation);
 
   return (
-    <>
-      <SearchBar value={searchValue} onValueChange={setSearchValue} />
-      <TableDisplay localisation={filteredLocalisation!} name={names} />
-    </>
+      <>
+        {isCalendarVisible && <AddWeekNumber/>}
+          <button className="toggle-calendar-button" onClick={() => setIsCalendarVisible(!isCalendarVisible)}>
+            Toggle Calendar
+          </button>
+          <SearchBar value={searchValue} onValueChange={setSearchValue}/><TableDisplay localisation={filteredLocalisation!} name={names}/>
+      </>
   );
 }

@@ -3,6 +3,8 @@ import React from "react";
 import { Localisation } from "../../Models/Localisation";
 import { Table, TableContainer, Tbody } from "@chakra-ui/react";
 import { Services } from "../../Models/Services";
+import "./TableDisplay.css";
+
 
 interface TableDisplayProps {
   localisation: Localisation | null;
@@ -36,36 +38,36 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
   if (!localisation || name.length === 0) return <></>;
 
   return (
-    <TableContainer>
-      <Table>
-        <Tbody>
-          <tr>
-            <th>Localisation</th>
-            <th>Service</th>
-            <th>Fréquence min</th>
-            <th>Fréquence max</th>
-            <th>Fréquence prédéfinie</th>
-          </tr>
-          {name.slice(0, itemsToShow).map(
-            (name) =>
-              Array.isArray(localisation[name]) &&
-              (localisation[name] as Services[]).map(
-                (item: Services) =>
-                  localisation[name] && (
-                    <tr>
-                      <td>{name}</td>
-                      <td>{item.Service}</td>
-                      <td>{item.Frequence.Fr_min}</td>
-                      <td>{item.Frequence.Fr_max}</td>
-                      <td>{item.Frequence.Preset}</td>
-                      (item.DateDebut && <td>{item.DateDebut}</td>) || <></>
-                      (item.DateFin && <td>{item.DateFin}</td>) || <></>
-                    </tr>
-                  )
-              )
-          )}
-        </Tbody>
-      </Table>
-    </TableContainer>
+  <TableContainer className="table-container">
+    <Table className="table">
+      <Tbody>
+        <tr>
+          <th className="table th">Localisation</th>
+          <th className="table th">Service</th>
+          <th className="table th">Fréquence min</th>
+          <th className="table th">Fréquence max</th>
+          <th className="table th">Fréquence prédéfinie</th>
+        </tr>
+        {name.slice(0, itemsToShow).map(
+          (name) =>
+            Array.isArray(localisation[name]) &&
+            (localisation[name] as Services[]).map(
+              (item: Services) =>
+                localisation[name] && (
+                  <tr className="table tr">
+                    <td className="table td">{name}</td>
+                    <td className="table td">{item.Service}</td>
+                    <td className="table td">{item.Frequence.Fr_min}</td>
+                    <td className="table td">{item.Frequence.Fr_max}</td>
+                    <td className="table td">{item.Frequence.Preset}</td>
+                    {(item.DateDebut && <td className="table td">{item.DateDebut}</td>) || <></>}
+                    {(item.DateFin && <td className="table td">{item.DateFin}</td>) || <></>}
+                  </tr>
+                )
+            )
+        )}
+      </Tbody>
+    </Table>
+  </TableContainer>
   );
-};
+}

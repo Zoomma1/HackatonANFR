@@ -1,0 +1,34 @@
+.Navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.Navbar:hover {
+    background-color: #e8e9ea;
+}
+
+.Navbar a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.Navbar a:hover {
+    color: #0055b8;
+}
+
+@media (max-width: 600px) {
+    .Navbar {
+        padding: 15px;
+    }
+}
