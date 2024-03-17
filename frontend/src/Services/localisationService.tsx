@@ -15,6 +15,8 @@ function childrenAsKeyword(child: Services, searchValue: string) {
     child.Service.toLowerCase().includes(searchValue.toLowerCase()),
     !isNaN(searchNumber) && searchNumber >= Fr_min && searchNumber <= Fr_max,
     child.Frequence.Preset.toLowerCase().includes(searchValue.toLowerCase()),
+    child.DateDebut?.toLowerCase().includes(searchValue.toLowerCase()),
+    child.DateFin?.toLowerCase().includes(searchValue.toLowerCase()),
   ];
 
   return tests.some((test) => test);
