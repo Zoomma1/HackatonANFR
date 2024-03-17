@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 class Reader:
@@ -11,9 +12,11 @@ class Reader:
     def csvToList(self) -> list:
         # Liste pour stocker les lignes du fichier CSV
         lignes = []
+        self.path = os.path.dirname(os.path.realpath(__file__)) + '/' + self.path
 
+        print(self.path)
         # remplacer le chemin par celui menant au fichier csv dans votre PC
-        with open(self.path, newline='') as f:
+        with open(file=self.path, newline='') as f:
             reader = csv.reader(f, delimiter=';')
             next(reader)  # Ignorer la première ligne (en-têtes de colonnes)
             for ligne in reader:
