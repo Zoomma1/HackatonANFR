@@ -7,7 +7,6 @@ import {
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
 import AddWeekNumber from "../../Calendar";
-
 export function Init() {
   const [localisation, setLocalisation] = useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
@@ -47,4 +46,7 @@ export function Init() {
       <TableDisplay localisation={filteredLocalisation!} name={names} />
     </>
   );
+}
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
 }
