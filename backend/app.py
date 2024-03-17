@@ -17,7 +17,6 @@ app.add_middleware(
 
 reader: Reader
 
-
 @app.get("/getAll")
 def getThemAll():
     response: JSONResponse
