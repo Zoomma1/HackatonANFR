@@ -1,3 +1,5 @@
+from typing import Union
+
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
 import Reader
@@ -19,7 +21,7 @@ reader: Reader
 
 
 @app.get("/getAll")
-def getThemAll():
+def getThemAll(number: Union[int, None] = None):
     response: JSONResponse
     responseArray = {}
     InitList: list = Reader.Reader("tableauInit.csv").csvToList()
@@ -37,7 +39,11 @@ def getThemAll():
             step1[line[0]].append(step2)
         else:
             step1[line[0]] = [step2]
-    return JSONResponse(step1)
+    if number is not None:
+        sliced_dict = dict(list(step1.items())[:number])
+        return JSONResponse(sliced_dict, status_code=418)
+    else:
+        return JSONResponse(step1, status_code=418)
 
 
 
@@ -57,21 +63,59 @@ def free():
             lieux[line[0]] = Lieu(line[0])
 
     # génère des groups vide avec un lieu et une plage de fréquence
+    result = {}
     for lieu in lieux:
-        listGroup: list = []
-        for line in libre:
-            if line[0] == lieu:
-                salle = Service(line[0], line[1], line[2], line[3])
-                if len(listGroup) == 0:
-                    listGroup.append(Group(salle.frequence))
-                else:
-                    for reservedLine in reservation:
-                        if reservedLine[5] == lieu:
-                                for group in listGroup:
-                                    if group.checkEmptyPlace(Service(reservedLine)):
-                                        group.AddToListGroup(Service(reservedLine[0], reservedLine[1], reservedLine[2], reservedLine[3]))
+        sorted_data = sorted(libre, key=lambda x: (float(x[2]) + float(x[3])) / 2)
+    for data in sorted_data:
+        if data[0] in result:
+            if data[1] in result[data[0]]:
+                result[data[0]][data[1]].append(data[2:])
+            else:
+                result[data[0]][data[1]] = [data[2:]]
+        else:
+            result[data[0]] = {data[1]: [data[2:]]}
 
-        return listGroup
+    # Initialize an empty dictionary to hold the groups
+    groups = {}
 
+    # Function to check if two frequency ranges overlap
+    def overlap(freq1, freq2):
+        return not (float(freq1[1]) < float(freq2[0]) or float(freq2[1]) < float(freq1[0]))
 
+    for lieu, services in result.items():
+        groups[lieu] = []
+        current_freqs = {}
+
+        for service, freqs in services.items():
+            freqs.sort(key=lambda x: (float(x[2]) if len(x) > 2 and x[2].replace('.', '', 1).isdigit() else 0.0 + float(
+                x[3]) if len(x) > 3 and x[3].replace('.', '', 1).isdigit() else 0.0) / 2)
+
+        while any(services.values()):
+            group = {}
+
+            for service, freqs in list(services.items()):
+                if not freqs:
+                    del services[service]
+                    continue
+
+                # If the next frequency overlaps with the current one, create a new group
+                if service in current_freqs and overlap(current_freqs[service], freqs[0]):
+                    groups[lieu].append(group)
+                    group = {}
+
+                group[service] = freqs.pop(0)
+                current_freqs[service] = group[service]
+
+            for existing_group in groups[lieu]:
+                for service, freq in group.items():
+                    for existing_service, existing_freq in existing_group.items():
+                        if overlap(freq, existing_freq):
+                            break
+                    else:
+                        continue
+                    break
+            else:
+                groups[lieu].append(group)
+
+    return groups
 
