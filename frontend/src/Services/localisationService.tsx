@@ -34,6 +34,7 @@ function childrenAsKeyword(child: Services, searchValue: string) {
     child.Disponibilité?.toLowerCase().includes(searchValue.toLowerCase()),
     (child.Frequence?.Envoyée?.Fr_min ?? 0) <= searchNumber &&
       (child.Frequence?.Envoyée?.Fr_max ?? 0) >= searchNumber,
+    child.Usage?.toLowerCase().includes(searchValue.toLowerCase()),
   ];
 
   return tests.some((test) => test);
