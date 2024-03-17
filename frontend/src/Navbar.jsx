@@ -1,16 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useNavigate, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
 function NavScrollExample() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const onclick = () => {
+        navigate("/CheckValidity");
+    };
+    const navigateToNewPage = () => {
+        navigate("/ValidationPage"); // replace "/ValidationPage" with the route of your Validation Page
+    };
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                <Navbar.Brand href="#">Frequency Board</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -18,20 +26,19 @@ function NavScrollExample() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Fr_Max</Nav.Link>
-                        <Nav.Link href="#action2">Fr_Min</Nav.Link>
-                        <Nav.Link href="#action2">Date-Start</Nav.Link>
-                        <Nav.Link href="#action2">Date_End</Nav.Link>
+                        <Button className="Go_Innit" onClick={() => navigate("/init")}>
+                            Home
+                        </Button>
+                        <Button className="Go_Innit" onClick={() => navigate("/Validation")}>
+                            Validation
+                        </Button>
+                        {location.pathname !== "/init" && (
+                            <Button className="check-frequency-button" onClick={onclick}>
+                                Check if frequency is available
+                            </Button>
+
+                        )}
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

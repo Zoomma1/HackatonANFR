@@ -6,12 +6,13 @@ import {
 } from "../../Services/localisationService";
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
-import AddWeekNumber from "../../Calendar";
+import NavScrollExample from "../../Navbar";
+
+
 export function Init() {
   const [localisation, setLocalisation] = useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false); // New state variable
 
   if (!localisation) {
     getLocalisation()
@@ -35,15 +36,9 @@ export function Init() {
 
   return (
     <>
-      {isCalendarVisible && <AddWeekNumber />}
-      <button
-        className="toggle-calendar-button"
-        onClick={() => setIsCalendarVisible(!isCalendarVisible)}
-      >
-        Toggle Calendar
-      </button>
-      <SearchBar value={searchValue} onValueChange={setSearchValue} />
-      <TableDisplay
+    <NavScrollExample/>
+    <SearchBar value={searchValue} onValueChange={setSearchValue} />
+    <TableDisplay
         localisation={filteredLocalisation!}
         name={names}
         displayType={"init"}
@@ -51,6 +46,7 @@ export function Init() {
     </>
   );
 }
+
 window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 }
