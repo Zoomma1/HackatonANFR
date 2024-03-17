@@ -35,8 +35,6 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
     loadMoreItems();
   };
 
-  console.log(localisation);
-
   if (!localisation || name.length === 0) return <></>;
 
   if (displayType === "init") {
