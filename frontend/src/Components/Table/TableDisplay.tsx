@@ -4,7 +4,6 @@ import { Localisation } from "../../Models/Localisation";
 import { Table, TableContainer, Tbody } from "@chakra-ui/react";
 import { Services } from "../../Models/Services";
 import "./TableDisplay.css";
-
 interface TableDisplayProps {
   localisation: Localisation | null;
   name: string[];
