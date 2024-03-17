@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Localisation } from "../../Models/Localisation";
-import { getLocalisation } from "../../Services/localisationService";
+import {
+  filterLocalisation,
+  getLocalisation,
+} from "../../Services/localisationService";
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
 
@@ -21,13 +24,18 @@ export function Dashboard() {
       });
   }
 
+  let filteredLocalisation = filterLocalisation(
+    localisation,
+    names,
+    searchValue
+  );
   console.log(names);
   console.log(localisation);
 
   return (
     <>
       <SearchBar value={searchValue} onValueChange={setSearchValue} />
-      <TableDisplay localisation={localisation!} name={names} />
+      <TableDisplay localisation={filteredLocalisation!} name={names} />
     </>
   );
 }
