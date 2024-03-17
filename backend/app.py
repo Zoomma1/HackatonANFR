@@ -171,6 +171,7 @@ def free():
                     else:
                         continue
                     break
+
             else:
                 groups[lieu].append(group)
 
