@@ -86,40 +86,40 @@ export function CheckValidity() {
         />
       </label>
       <label>
-        RX Frequency (min):
-        <input
-          type="text"
-          name="rx_freq_min"
-          value={formState.rx_freq_min}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        RX Frequency (max):
-        <input
-          type="text"
-          name="rx_freq_max"
-          value={formState.rx_freq_max}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        TX Frequency (Optional) (min):
+        TX Frequency (min):
         <input
           type="text"
           name="tx_freq_min"
           value={formState.tx_freq_min}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
-        TX Frequency (Optional) (max):
+        TX Frequency (max):
         <input
           type="text"
           name="tx_freq_max"
           value={formState.tx_freq_max}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        RX Frequency (Optional) (min):
+        <input
+          type="text"
+          name="rx_freq_min"
+          value={formState.rx_freq_min}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        RX Frequency (Optional) (max):
+        <input
+          type="text"
+          name="rx_freq_max"
+          value={formState.rx_freq_max}
           onChange={handleChange}
         />
       </label>

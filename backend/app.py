@@ -118,21 +118,21 @@ class Item(BaseModel):
     service: str
     usage_type: str
     venue: str
-    rx_freq_min: str
-    rx_freq_max: str
-    tx_freq_min: Optional[str] = None
-    tx_freq_max: Optional[str] = None
+    rx_freq_min: Optional[str] = None
+    rx_freq_max: Optional[str] = None
+    tx_freq_min: str
+    tx_freq_max: str
     duplex: Optional[str] = None
 
 
 @app.post("/checkValidate")
 async def free(item: Item):
     print(item)
-    tx_freq_avg = None
-    if item.tx_freq_min and item.tx_freq_max:
-        tx_freq_avg = (float(item.tx_freq_min) + float(item.tx_freq_max)) / 2
+    rx_freq_avg = None
+    if item.rx_freq_min and item.rx_freq_max:
+        rx_freq_avg = (float(item.rx_freq_min) + float(item.rx_freq_max)) / 2
 
     result = check_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue,
-                                (float(item.rx_freq_min) + float(item.rx_freq_max)) / 2,
-                                tx_freq_avg, item.duplex)
+                                (float(item.tx_freq_min) + float(item.tx_freq_max)) / 2,
+                                rx_freq_avg, item.duplex)
     return JSONResponse(result, status_code=200)
