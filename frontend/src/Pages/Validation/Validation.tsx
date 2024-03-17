@@ -44,11 +44,10 @@ export function Validation() {
         <NavScrollExample/>
         <SearchBar value={searchValue} onValueChange={setSearchValue} />
         {isCalendarVisible && <AddWeekNumber />}
-        <button
-            className="toggle-calendar-button"
+        <button className="toggle-calendar-button"
             onClick={() => setIsCalendarVisible(!isCalendarVisible)}
         >
-          Toggle Calendar
+          Calendar
         </button>
       </div>
       <TableDisplay

@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
-
+import logo from './Logo-ANFR.svg'; // Import your image here
 function NavScrollExample() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,10 +36,12 @@ function NavScrollExample() {
                             <Button className="check-frequency-button" onClick={onclick}>
                                 Check if frequency is available
                             </Button>
-
                         )}
                     </Nav>
                 </Navbar.Collapse>
+                <Navbar.Brand href="#">
+                    <img src={logo} alt="Logo" style={{width: '100px'}} /> {}
+                </Navbar.Brand>
             </Container>
         </Navbar>
     );

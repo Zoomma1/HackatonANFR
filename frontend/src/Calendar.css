@@ -1,12 +1,17 @@
+/* frontend/src/Calendar.css */
+
 .Calendar {
-    background-color: rgba(176, 169, 112, 0.57);
-    border-radius: 10px;
+    background-color: #4caf50; /* Changed background color to green */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 30px;
+    padding: 20px; /* Reduced padding */
     font-family: Arial, sans-serif;
     transition: all 0.3s ease-in-out;
-    width: 300px; /* Set a fixed width for the calendar */
-    margin: 0 auto; /* Center the calendar horizontally */
+    margin: auto;
+    width: fit-content;
+    border-radius: 5px; /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Style the calendar cells */
@@ -21,28 +26,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px; /* Set a fixed height for the cells */
+    height: 30px; /* Reduced height for the cells */
     border-radius: 50%; /* Make the cells circular */
 }
 
 /* Style the selected day */
 .Calendar .MuiPickersCalendar-daySelected {
-    background-color: #4caf50; /* Change the background color of the selected day */
-    color: white; /* Change the text color of the selected day */
+    background-color: #ffffff; /* Change the background color of the selected day to white */
+    color: #4caf50; /* Change the text color of the selected day to green */
 }
 
 .toggle-calendar-button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  transition-duration: 0.4s;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 20px 20px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+
 }
 
 .toggle-calendar-button:hover {
