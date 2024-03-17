@@ -4,23 +4,18 @@ import { useState } from "react";
 
 export function CheckValidity() {
   const [formState, setFormState] = useState({
-    startDate: "",
-    endDate: "",
+    start_date: "",
+    end_date: "",
     service: "",
-    usageType: "",
+    usage_type: "",
     venue: "",
-    rxFreq: "",
-    txFreq: "",
+    rx_freq_min: "",
+    rx_freq_max: "",
+    tx_freq_min: "",
+    tx_freq_max: "",
     duplex: "",
   });
 
-  function handleSubmit(event: { preventDefault: () => void }) {
-    event.preventDefault();
-
-    ApiService.post("/checkValidate", formState).then((response) => {
-      console.log(response);
-    });
-  }
   const handleChange = (event: { target: { name: any; value: any } }) => {
     setFormState({
       ...formState,
@@ -28,14 +23,28 @@ export function CheckValidity() {
     });
   };
 
+  const [isValid, setIsValid] = useState(null);
+
+  function handleSubmit(event: { preventDefault: () => void }) {
+    event.preventDefault();
+    ApiService.post("/checkValidate", formState)
+      .then((response) => {
+        console.log(response);
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Start Date:
         <input
           type="date"
-          name="startDate"
-          value={formState.startDate}
+          name="start_date"
+          value={formState.start_date}
           onChange={handleChange}
           required
         />
@@ -44,8 +53,8 @@ export function CheckValidity() {
         End Date:
         <input
           type="date"
-          name="endDate"
-          value={formState.endDate}
+          name="end_date"
+          value={formState.end_date}
           onChange={handleChange}
           required
         />
@@ -64,8 +73,8 @@ export function CheckValidity() {
         Usage Type:
         <input
           type="text"
-          name="usageType"
-          value={formState.usageType}
+          name="usage_type"
+          value={formState.usage_type}
           onChange={handleChange}
           required
         />
@@ -81,21 +90,40 @@ export function CheckValidity() {
         />
       </label>
       <label>
-        RX Frequency:
+        RX Frequency (min):
         <input
           type="text"
-          name="rxFreq"
-          value={formState.rxFreq}
+          name="rx_freq_min"
+          value={formState.rx_freq_min}
           onChange={handleChange}
           required
         />
       </label>
       <label>
-        TX Frequency (Optional):
+        RX Frequency (max):
         <input
           type="text"
-          name="txFreq"
-          value={formState.txFreq}
+          name="rx_freq_max"
+          value={formState.rx_freq_max}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        TX Frequency (Optional) (min):
+        <input
+          type="text"
+          name="tx_freq_min"
+          value={formState.tx_freq_min}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        TX Frequency (Optional) (max):
+        <input
+          type="text"
+          name="tx_freq_max"
+          value={formState.tx_freq_max}
           onChange={handleChange}
         />
       </label>
@@ -109,6 +137,9 @@ export function CheckValidity() {
         />
       </label>
       <button type="submit">Validate</button>
+      {isValid !== null && (
+        <label>Frequency is {isValid ? "Valid" : "Invalid"}</label>
+      )}
     </form>
   );
 }
