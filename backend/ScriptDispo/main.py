@@ -9,20 +9,25 @@ requests = pd.read_csv('requests.csv', delimiter=';', encoding='ISO-8859-1')
 available_freqs = pd.read_csv('available_freqs.csv', delimiter=';', encoding='ISO-8859-1')
 
 requests['Attributed Frequency (Tx)'] = pd.to_numeric(requests['Attributed Frequency (Tx)'], errors='coerce')
-available_freqs['FrÃ©quence Min (MHz)'] = pd.to_numeric(available_freqs['FrÃ©quence Min (MHz)'], errors='coerce')
-available_freqs['FrÃ©quence Max (MHz)'] = pd.to_numeric(available_freqs['FrÃ©quence Max (MHz)'], errors='coerce')
+available_freqs['Frequence Min (MHz)'] = pd.to_numeric(available_freqs['Frequence Min (MHz)'], errors='coerce')
+available_freqs['Frequence Max (MHz)'] = pd.to_numeric(available_freqs['Frequence Max (MHz)'], errors='coerce')
 
 def generateCsv():
     results = []
 
     for i, request in requests.iterrows():
 
-        available = available_freqs[(available_freqs['FrÃ©quence Min (MHz)'] <= request['Attributed Frequency (Tx)']) & (available_freqs['FrÃ©quence Max (MHz)'] >= request['Attributed Frequency (Tx)'])]
+        available = available_freqs[
+            (available_freqs['Frequence Min (MHz)'] <= request['Attributed Frequency (Tx)']) &
+            (available_freqs['Frequence Max (MHz)'] >= request['Attributed Frequency (Tx)']) &
+            ((available_freqs['Debut'] < request['Debut'] < available_freqs['Fin']) |
+             (available_freqs['Debut'] < request['Fin'] < available_freqs['Fin']))
+        ]
 
         if not available.empty:
-            results.append('Available')
-        else:
             results.append('Not Available')
+        else:
+            results.append('Available')
 
     requests['Availability'] = results
 
@@ -31,29 +36,25 @@ def generateCsv():
 
 
 def check_frequency_availability(start_date, end_date, service, usage_type, venue, rx_freq, tx_freq, duplex):
-    available = available_freqs[
+    available = requests[
         (available_freqs['Service'] == service) &
-        (available_freqs['Usage Type'] == usage_type) &
-        (available_freqs['Venue'] == venue) &
-        (available_freqs['Duplex'] == duplex) &
-        (available_freqs['Start Date'] <= start_date) &
-        (available_freqs['End Date'] >= end_date) &
-        (available_freqs['Fréquence Min (MHz)'] <= rx_freq) &
-        (available_freqs['Fréquence Max (MHz)'] >= tx_freq)
+        (available_freqs['Localisation'] == venue) &
+        (available_freqs['Frequence Min (MHz)'] <= rx_freq) &
+        (available_freqs['Frequence Max (MHz)'] >= tx_freq)
     ]
 
     requested = requests[
-        (requests['Service'] == service) &
+        (requests['Spectrum Service'] == service) &
         (requests['Usage Type'] == usage_type) &
         (requests['Venue'] == venue) &
         (requests['Duplex'] == duplex) &
-        (requests['Start Date'] <= start_date) &
-        (requests['End Date'] >= end_date) &
-        (requests['Fréquence Min (MHz)'] <= rx_freq) &
-        (requests['Fréquence Max (MHz)'] >= tx_freq)
+        (requests['Debut'] <= start_date) &
+        (requests['Fin'] >= end_date) &
+        (requests['Attributed Frequency (Tx)'] <= rx_freq) &
+        (requests['Attributed Frequency (Rx)'] >= tx_freq)
     ]
 
-    if not available.empty and requested.empty:
+    if requested.empty:
         return True
     else:
         return False

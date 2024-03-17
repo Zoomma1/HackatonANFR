@@ -23,18 +23,14 @@ export function CheckValidity() {
     });
   };
 
-  const [isValid, setIsValid] = useState(null);
-
+  const [isValid, setIsValid] = useState<boolean | null>(null);
   function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
-    ApiService.post("/checkValidate", formState)
-      .then((response) => {
-        console.log(response);
-        response.json();
-      })
-      .then((data) => {
-        console.log(data);
+    ApiService.post("/checkValidate", formState).then((response) => {
+      response.text().then((text) => {
+        setIsValid(text === "true" ? true : false);
       });
+    });
   }
 
   return (
