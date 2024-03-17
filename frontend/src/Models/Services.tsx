@@ -2,7 +2,8 @@ import { Frequence } from "./Frequence";
 
 export interface Services {
   Service: String;
-  Frequence: Frequence;
+  Frequence?: Frequence;
   DateDebut?: String;
   DateFin?: String;
+  Disponibilité?: String;
 }
