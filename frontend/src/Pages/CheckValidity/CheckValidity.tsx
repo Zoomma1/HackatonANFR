@@ -1,6 +1,7 @@
 import { ApiService } from "../../Services/apiService";
-import "./CheckValidity.css";
 import { useState } from "react";
+import './CheckValidity.css';
+import NavScrollExample from "../../Navbar";
 
 export function CheckValidity() {
   const [formState, setFormState] = useState({
@@ -34,6 +35,8 @@ export function CheckValidity() {
   }
 
   return (
+      <>
+    <NavScrollExample/>
     <form onSubmit={handleSubmit}>
       <label>
         Start Date:
@@ -137,5 +140,6 @@ export function CheckValidity() {
         <label>Frequency is {isValid ? "Valid" : "Invalid"}</label>
       )}
     </form>
+      </>
   );
 }

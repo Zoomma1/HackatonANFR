@@ -1,0 +1,51 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+form {
+    background-color: rgba(152, 173, 168, 0.13);
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Define the grid columns */
+    gap: 20px; /* Define the gap between grid items */
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 500px;
+    height: 500px; /* Define the height of the square */
+    margin: 0 auto; /* Center the square horizontally */
+    position: absolute; /* Needed for vertical centering */
+    top: 50%; /* Center the square vertically */
+    left: 50%; /* Center the square horizontally */
+    transform: translate(-50%, -50%); /* Correct the centering by shifting the square's top left corner to the center */
+    justify-items: center; /* Center grid items horizontally */
+    align-items: center; /* Center grid items vertically */
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  grid-column: 1 / -1; /* Span the button across all grid columns */
+  justify-self: center; /* Center the button horizontally */
+}
+
+button:hover {
+    background-color: #45a049;
+}
