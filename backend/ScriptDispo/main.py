@@ -1,4 +1,9 @@
 import pandas as pd
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+os.chdir(script_dir)
 
 requests = pd.read_csv('requests.csv', delimiter=';', encoding='ISO-8859-1')
 available_freqs = pd.read_csv('available_freqs.csv', delimiter=';', encoding='ISO-8859-1')
