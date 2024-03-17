@@ -58,6 +58,8 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
                       <td>{item.Frequence.Fr_min}</td>
                       <td>{item.Frequence.Fr_max}</td>
                       <td>{item.Frequence.Preset}</td>
+                      (item.DateDebut && <td>{item.DateDebut}</td>) || <></>
+                      (item.DateFin && <td>{item.DateFin}</td>) || <></>
                     </tr>
                   )
               )
