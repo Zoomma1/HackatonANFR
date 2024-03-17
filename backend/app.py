@@ -1,8 +1,11 @@
+from typing import Optional
+
 from fastapi import FastAPI
+from pydantic import BaseModel
 from starlette.responses import JSONResponse
 import Reader
 from starlette.middleware.cors import CORSMiddleware
-from ScriptDispo.main as check import check_frequency_availability
+from ScriptDispo.main import check_frequency_availability as check_availability
 from Entity.Service import Service
 from Entity.Lieu import Lieu
 from Entity.Group import Group
@@ -71,7 +74,7 @@ def reservation():
             result[line[7]] = [step2]
     return JSONResponse(result,status_code=418)
 
-<<<<<<< Updated upstream
+
 @app.get("/getAvalaible")
 def available():
     reservation: list = (Reader.Reader('ScriptDispo/results.csv')).csvToList()
@@ -121,13 +124,5 @@ class Item(BaseModel):
 
 @app.get("/checkValidate")
 async def free(item: Item):
-    result = check.check_frequency_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue, (float(item.rx_freq_min)+float(item.rx_freq_max))/2, (float(item.tx_freq_min)+float(item.tx_freq_max))/2, item.duplex)
-    return JSONResponse(result,status_code=200)
-
-=======
->>>>>>> Stashed changes
-
-@app.get("/checkValidate")
-async def free(item: Item):
-    result = check.check_frequency_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue, (float(item.rx_freq_min)+float(item.rx_freq_max))/2, (float(item.tx_freq_min)+float(item.tx_freq_max))/2, item.duplex)
+    result = check_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue, (float(item.rx_freq_min)+float(item.rx_freq_max))/2, (float(item.tx_freq_min)+float(item.tx_freq_max))/2, item.duplex)
     return JSONResponse(result,status_code=200)
