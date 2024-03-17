@@ -2,8 +2,11 @@
 import { Services } from "../Models/Services";
 import { ApiService } from "./apiService";
 
-export async function getLocalisation() {
-  return ApiService.get("/getAll");
+export async function getLocalisation(numberOfLocalisation?: number) {
+  if (!numberOfLocalisation) {
+    return ApiService.get("/getAll");
+  }
+  return ApiService.get("/getAll?number=" + numberOfLocalisation);
 }
 
 function childrenAsKeyword(child: Services, searchValue: string) {

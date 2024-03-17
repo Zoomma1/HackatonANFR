@@ -6,8 +6,9 @@ import {
 } from "../../Services/localisationService";
 import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
+import { BarChart as ChartBar } from "../../Components/Chart/ChartBar";
 
-export function Dashboard() {
+export function Init() {
   const [localisation, setLocalisation] = useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
@@ -21,6 +22,9 @@ export function Dashboard() {
         setLocalisation(data);
         setNames(Object.keys(data));
         return;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -29,11 +33,12 @@ export function Dashboard() {
     names,
     searchValue
   );
-  console.log(names);
-  console.log(localisation);
+  //  console.log(names);
+  //  console.log(localisation);
 
   return (
     <>
+      {/* <ChartBar localisation={localisation} name={names} /> */}
       <SearchBar value={searchValue} onValueChange={setSearchValue} />
       <TableDisplay localisation={filteredLocalisation!} name={names} />
     </>
