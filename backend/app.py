@@ -1,5 +1,4 @@
 from typing import Optional
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.responses import JSONResponse
@@ -9,6 +8,7 @@ from ScriptDispo.main import check_frequency_availability as check_availability
 from Entity.Service import Service
 from Entity.Lieu import Lieu
 from Entity.Group import Group
+from pydantic import BaseModel
 
 app: FastAPI = FastAPI()
 app.add_middleware(
@@ -109,6 +109,7 @@ def available():
             result[line[7]].append(step2)
         else:
             result[line[7]] = [step2]
+
     return JSONResponse(result, status_code=418)
 
 class Item(BaseModel):
@@ -122,6 +123,7 @@ class Item(BaseModel):
     tx_freq_min: Optional[str] = None
     tx_freq_max: Optional[str] = None
     duplex: Optional[str] = None
+
 
 
 @app.post("/checkValidate")

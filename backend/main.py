@@ -1,4 +1,7 @@
 import os
 
 if __name__ == "__main__":
-    os.system("uvicorn app:app --reload")
+    if (platform.system() == 'Linux'):
+        os.system("uvicorn app:app --reload")
+    else:
+        os.system("python3 -m uvicorn app:app --reload")
