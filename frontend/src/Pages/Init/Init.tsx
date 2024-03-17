@@ -8,7 +8,7 @@ import { TableDisplay } from "../../Components/Table/TableDisplay";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
 import AddWeekNumber from "../../Calendar";
 
-export function Dashboard() {
+export function Init() {
   const [localisation, setLocalisation] = useState<Localisation>();
   const [names, setNames] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
@@ -35,12 +35,16 @@ export function Dashboard() {
   console.log(localisation);
 
   return (
-      <>
-        {isCalendarVisible && <AddWeekNumber/>}
-          <button className="toggle-calendar-button" onClick={() => setIsCalendarVisible(!isCalendarVisible)}>
-            Toggle Calendar
-          </button>
-          <SearchBar value={searchValue} onValueChange={setSearchValue}/><TableDisplay localisation={filteredLocalisation!} name={names}/>
-      </>
+    <>
+      {isCalendarVisible && <AddWeekNumber />}
+      <button
+        className="toggle-calendar-button"
+        onClick={() => setIsCalendarVisible(!isCalendarVisible)}
+      >
+        Toggle Calendar
+      </button>
+      <SearchBar value={searchValue} onValueChange={setSearchValue} />
+      <TableDisplay localisation={filteredLocalisation!} name={names} />
+    </>
   );
 }
