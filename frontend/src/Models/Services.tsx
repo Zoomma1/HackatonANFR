@@ -6,4 +6,5 @@ export interface Services {
   DateDebut?: String;
   DateFin?: String;
   Disponibilité?: String;
+  Usage?: String;
 }

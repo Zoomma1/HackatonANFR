@@ -35,6 +35,8 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
     loadMoreItems();
   };
 
+  console.log(localisation);
+
   if (!localisation || name.length === 0) return <></>;
 
   if (displayType === "init") {
@@ -84,6 +86,7 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
           <Tbody>
             <tr>
               <th className="table th">Localisation</th>
+              <th className="table th">Spectrum service</th>
               <th className="table th">Service</th>
               <th className="table th">Fréquence min (Rx)</th>
               <th className="table th">Fréquence max (Rx)</th>
@@ -101,6 +104,7 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
                     localisation[name] && (
                       <tr className="table tr">
                         <td className="table td">{name}</td>
+                        <td className="table td">{item.Usage}</td>
                         <td className="table td">{item.Service}</td>
                         <td className="table td">
                           {item.Frequence?.Recue?.Fr_min}
