@@ -1,5 +1,5 @@
 export interface Frequence {
-  Fr_min: string;
-  Fr_max: string;
+  Fr_min: number;
+  Fr_max: number;
   Preset: string;
 }

@@ -46,16 +46,21 @@ export const TableDisplay: React.FC<TableDisplayProps> = ({
             <th>Fréquence max</th>
             <th>Fréquence prédéfinie</th>
           </tr>
-          {name.slice(0, itemsToShow).map((name) =>
-            (localisation[name] as Services[]).map((item: Services) => (
-              <tr>
-                <td>{name}</td>
-                <td>{item.Service}</td>
-                <td>{item.Frequence.Fr_min}</td>
-                <td>{item.Frequence.Fr_max}</td>
-                <td>{item.Frequence.Preset}</td>
-              </tr>
-            ))
+          {name.slice(0, itemsToShow).map(
+            (name) =>
+              Array.isArray(localisation[name]) &&
+              (localisation[name] as Services[]).map(
+                (item: Services) =>
+                  localisation[name] && (
+                    <tr>
+                      <td>{name}</td>
+                      <td>{item.Service}</td>
+                      <td>{item.Frequence.Fr_min}</td>
+                      <td>{item.Frequence.Fr_max}</td>
+                      <td>{item.Frequence.Preset}</td>
+                    </tr>
+                  )
+              )
           )}
         </Tbody>
       </Table>
