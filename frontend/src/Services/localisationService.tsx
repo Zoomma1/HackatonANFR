@@ -9,17 +9,29 @@ export async function getLocalisation(numberOfLocalisation?: number) {
   return ApiService.get("/getAll?number=" + numberOfLocalisation);
 }
 
+export async function getAvailable() {
+  return ApiService.get("/getAvalaible");
+}
+
 function childrenAsKeyword(child: Services, searchValue: string) {
   const searchNumber = parseFloat(searchValue);
-  const Fr_min = parseFloat(child.Frequence.Fr_min.toString());
-  const Fr_max = parseFloat(child.Frequence.Fr_max.toString());
+  let Fr_min: number | undefined;
+  let Fr_max: number | undefined;
+  if (child.Frequence) {
+    Fr_min = parseFloat(child.Frequence.Fr_min?.toString());
+    Fr_max = parseFloat(child.Frequence.Fr_max?.toString());
+  }
 
   const tests = [
     child.Service.toLowerCase().includes(searchValue.toLowerCase()),
-    !isNaN(searchNumber) && searchNumber >= Fr_min && searchNumber <= Fr_max,
-    child.Frequence.Preset.toLowerCase().includes(searchValue.toLowerCase()),
+    !isNaN(searchNumber) && searchNumber >= Fr_min! && searchNumber <= Fr_max!,
+    !!child.Frequence &&
+      (child.Frequence.Preset ?? "")
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()),
     child.DateDebut?.toLowerCase().includes(searchValue.toLowerCase()),
     child.DateFin?.toLowerCase().includes(searchValue.toLowerCase()),
+    child.Disponibilité?.toLowerCase().includes(searchValue.toLowerCase()),
   ];
 
   return tests.some((test) => test);

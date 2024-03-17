@@ -1,4 +1,4 @@
-Stakeholder Id;Request Id;Request Date;D�but;Fin;Spectrum Service;Usage Type;Venue;Duplex;Channel Bandwidth (kHz);Attributed Frequency (Tx);Intervalle de pr�f�rence;Attributed Frequency (Rx);Status;Saisie;R�ponse ANFR
+Stakeholder Id;Request Id;Request Date;Debut;Fin;Spectrum Service;Usage Type;Venue;Duplex;Channel Bandwidth (kHz);Attributed Frequency (Tx);Intervalle de pr�f�rence;Attributed Frequency (Rx);Status;Saisie;R�ponse ANFR
 A5A2;A6A3-10;12/07/2023;28/08/2024;08/09/2024;Private_Mobile_Radio;Ground to Ground;PO2 - PARIS OUEST 2;Non;12.5;454.6;Oui;;approved;auto;
 A5A2;BBS-10;12/07/2023;28/08/2024;08/09/2024;Private_Mobile_Radio;Ground to Ground;PO2 - PARIS OUEST 2;Non;12.5;454.7125;Oui;;approved;auto;
 AA1;AA1-10;26/07/2023;30/08/2024;08/09/2024;Private_Mobile_Radio;Ground to Ground;PO2 - PARIS OUEST 2;Non;12.5;454.5125;Oui;;approved;auto;

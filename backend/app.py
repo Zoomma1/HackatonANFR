@@ -1,9 +1,10 @@
 from typing import Optional
-import ScriptDispo.main as check
 from fastapi import FastAPI
+from pydantic import BaseModel
 from starlette.responses import JSONResponse
 import Reader
 from starlette.middleware.cors import CORSMiddleware
+from ScriptDispo.main import check_frequency_availability as check_availability
 from Entity.Service import Service
 from Entity.Lieu import Lieu
 from Entity.Group import Group
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 reader: Reader
+
 
 @app.get("/getAll")
 def getThemAll():
@@ -41,6 +43,7 @@ def getThemAll():
             step1[line[0]] = [step2]
     return JSONResponse(step1)
 
+
 @app.get("/getReservation")
 def reservation():
     reservation: list = (Reader.Reader('tableauReservee.csv')).csvToList()
@@ -51,13 +54,13 @@ def reservation():
             Fr_Rx_min = None
             Fr_Rx_max = None
         else:
-            Fr_Rx_min = float(line[12]) - float(line[9])*10**(-3)
-            Fr_Rx_max = float(line[12]) + float(line[9])*10**(-3)
+            Fr_Rx_min = float(line[12]) - float(line[9]) * 10 ** (-3)
+            Fr_Rx_max = float(line[12]) + float(line[9]) * 10 ** (-3)
         step2['Service'] = line[6]
         step2['Frequence'] = {
             'Envoyée': {
-                'Fr_min': float(line[10]) - float(line[9])*10**(-3),
-                'Fr_max': float(line[10]) + float(line[9])*10**(-3),
+                'Fr_min': float(line[10]) - float(line[9]) * 10 ** (-3),
+                'Fr_max': float(line[10]) + float(line[9]) * 10 ** (-3),
             },
             'Recu': {
                 'Fr_min': Fr_Rx_min,
@@ -71,7 +74,8 @@ def reservation():
             result[line[7]].append(step2)
         else:
             result[line[7]] = [step2]
-    return JSONResponse(result,status_code=418)
+    return JSONResponse(result, status_code=418)
+
 
 @app.get("/getAvalaible")
 def available():
@@ -84,13 +88,13 @@ def available():
             Fr_Rx_min = None
             Fr_Rx_max = None
         else:
-            Fr_Rx_min = float(line[12]) - float(line[9])*10**(-3)
-            Fr_Rx_max = float(line[12]) + float(line[9])*10**(-3)
+            Fr_Rx_min = float(line[12]) - float(line[9]) * 10 ** (-3)
+            Fr_Rx_max = float(line[12]) + float(line[9]) * 10 ** (-3)
         step2['Service'] = line[6]
         step2['Frequence'] = {
             'Envoyée': {
-                'Fr_min': float(line[10]) - float(line[9])*10**(-3),
-                'Fr_max': float(line[10]) + float(line[9])*10**(-3),
+                'Fr_min': float(line[10]) - float(line[9]) * 10 ** (-3),
+                'Fr_max': float(line[10]) + float(line[9]) * 10 ** (-3),
             },
             'Recu': {
                 'Fr_min': Fr_Rx_min,
@@ -105,23 +109,27 @@ def available():
             result[line[7]].append(step2)
         else:
             result[line[7]] = [step2]
-    return JSONResponse(result,status_code=418)
+
+    return JSONResponse(result, status_code=418)
 
 class Item(BaseModel):
-    start_date:str
-    end_date:str
-    service:str
-    usage_type:str
-    venue:str
-    rx_freq_min:str
-    rx_freq_max:str
+    start_date: str
+    end_date: str
+    service: str
+    usage_type: str
+    venue: str
+    rx_freq_min: str
+    rx_freq_max: str
     tx_freq_min: Optional[str] = None
     tx_freq_max: Optional[str] = None
     duplex: Optional[str] = None
 
 
-@app.get("/checkValidate")
-async def free(item: Item):
-    result = check.check_frequency_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue, (float(item.rx_freq_min)+float(item.rx_freq_max))/2, (float(item.tx_freq_min)+float(item.tx_freq_max))/2, item.duplex)
-    return JSONResponse(result,status_code=200)
 
+@app.post("/checkValidate")
+async def free(item: Item):
+    print(item)
+    result = check_availability(item.start_date, item.end_date, item.service, item.usage_type, item.venue,
+                                (float(item.rx_freq_min) + float(item.rx_freq_max)) / 2,
+                                (float(item.tx_freq_min) + float(item.tx_freq_max)) / 2, item.duplex)
+    return JSONResponse(result, status_code=200)

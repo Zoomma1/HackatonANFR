@@ -19,4 +19,14 @@ export class ApiService {
       method: "GET",
     });
   }
+
+  static async post(url: string, body: any) {
+    return await fetch(this.baseUrl + url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+  }
 }
