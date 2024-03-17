@@ -104,6 +104,7 @@ def available():
         step2['DateDebut'] = line[3]
         step2['DateFin'] = line[4]
         step2['Disponibilité'] = line[16]
+        step2['Usage'] = line[5]
 
         if line[7] in result:
             result[line[7]].append(step2)
