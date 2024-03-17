@@ -1,3 +1,4 @@
+import { ApiService } from "../../Services/apiService";
 import "./CheckValidity.css";
 import { useState } from "react";
 
@@ -13,6 +14,13 @@ export function CheckValidity() {
     duplex: "",
   });
 
+  function handleSubmit(event: { preventDefault: () => void }) {
+    event.preventDefault();
+
+    ApiService.post("/checkValidate", formState).then((response) => {
+      console.log(response);
+    });
+  }
   const handleChange = (event: { target: { name: any; value: any } }) => {
     setFormState({
       ...formState,
@@ -21,7 +29,7 @@ export function CheckValidity() {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Start Date:
         <input
