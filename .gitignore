@@ -2,4 +2,5 @@
 .vscode/**
 node_modules/**
 backend/__pycache__/**
+backend/Entity/__pycache__/**
 

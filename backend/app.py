@@ -71,6 +71,40 @@ def reservation():
             result[line[7]] = [step2]
     return JSONResponse(result,status_code=418)
 
+@app.get("/getAvalaible")
+def available():
+    reservation: list = (Reader.Reader('ScriptDispo/results.csv')).csvToList()
+    result = {}
+    for line in reservation:
+        line = line[0].split(',')
+        step2: dict = {}
+        if line[12] == '':
+            Fr_Rx_min = None
+            Fr_Rx_max = None
+        else:
+            Fr_Rx_min = float(line[12]) - float(line[9])*10**(-3)
+            Fr_Rx_max = float(line[12]) + float(line[9])*10**(-3)
+        step2['Service'] = line[6]
+        step2['Frequence'] = {
+            'Envoyée': {
+                'Fr_min': float(line[10]) - float(line[9])*10**(-3),
+                'Fr_max': float(line[10]) + float(line[9])*10**(-3),
+            },
+            'Recu': {
+                'Fr_min': Fr_Rx_min,
+                'Fr_max': Fr_Rx_max,
+            }
+        }
+        step2['DateDebut'] = line[3]
+        step2['DateFin'] = line[4]
+        step2['Disponibilité'] = line[16]
+
+        if line[7] in result:
+            result[line[7]].append(step2)
+        else:
+            result[line[7]] = [step2]
+    return JSONResponse(result,status_code=418)
+
 @app.get("/getFree")
 def free():
     ## correspond au group
